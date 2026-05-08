@@ -7,24 +7,20 @@
   </head>
 
   <body>
-    <h1>Login</h1>
-    <form action="/loginPage" method="post">
+    <h1>Delete Account</h1>
+    <form action="/deleteAccount" method="post">
       <fieldset>
-        <label for="newAccount">
-          Please Select this box if you are creating a new account
-        </label>
-        <input type="checkbox" id="newAccount" name="newAccount" value="true" />
         <label>Username: <input type="text" name="username" /></label>
         <label>Password: <input type="text" name="password" /></label>
         <br /><br />
       </fieldset>
       <br />
       <button type="reset">Reset</button>
-      <button type="sumbit">Login</button>
+      <button type="sumbit">Delete</button>
 
-      <h3> <%=errorMessage%></h3>
+      <h3> <%=message%></h3>
     </form>
     <hr />
-    <a href="/deleteAccount">Delete Account?</a>
+    <a href="/">HOME</a>
   </body>
 </html>

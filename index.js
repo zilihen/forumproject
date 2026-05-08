@@ -5,6 +5,7 @@ const portNumber = 5000;
 const bodyParser = require("body-parser");
 const cred = require("./routes/loginPage");
 const home = require("./routes/home")
+const deleteAccount = require("./routes/delete")
 const router = express.Router()
 require("dotenv").config({
     path: path.resolve(__dirname, ".env"),
@@ -18,14 +19,21 @@ app.use(express.static(__dirname+'/public'));
 
 app.use("/loginPage", cred.router)
 app.use("/home", home)
+app.use("/deleteAccount", deleteAccount)
 
 app.get("/", (request, response) => { 
     if(cred.getLoginStatus() === false) { 
         response.redirect("/loginPage");
     } else { 
-        response.redirect("/home");
+        let name = cred.getName(); 
+        response.render("home", {name});
     }
 })
+
+
+app.get("/deleteAccount", (req, res)=>{ 
+    res.redirect("/deleteAccount")
+});
 
 
 app.listen(portNumber);
