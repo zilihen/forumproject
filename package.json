@@ -10,7 +10,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "alert": "^6.0.2",
+    "body-parser": "^2.2.2",
+    "dns": "^0.2.2",
+    "dotenv": "^17.4.2",
+    "ejs": "^5.0.2",
     "express": "^5.2.1",
+    "mongodb": "^7.2.0",
+    "mongoose": "^9.6.1",
     "router": "^2.2.0"
   }
 }

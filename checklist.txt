@@ -1,0 +1,16 @@
+still working on it Design and implement a Node.js/Express.js/MongoDB application.
+DONE Your application must rely on Node.js and Express; no PHP code will be accepted.
+DONE You must use routes (express express.Router()) for some of your endpoints.
+we're getting there You must use Mongoose to interact with MongoDB.
+Your application must store and retrieve data from MongoDB.
+DONE Your application must have at least one form where users provide some data.
+DONE Your application must define and use a CSS file that:
+DONE Relies on at least the background-color, color and font-size properties.
+DONE Relies on at least a google font.
+Your application must rely on at least one API that provides some data (weather, pictures, etc.) for you. Some API resources (you are not restricted to only these resources) are:
+https://github.com/public-apis/public-apis
+https://rapidapi.com/
+https://apipheny.io/free-api/
+IMPORTANT: Using setInterval, setTimeout, fetch by themselves (without downloading data from somewhere online) will not satisfy the API requirement. If you plan to use an API I have used in class examples or projects, you need to contact me first so I can approve it.
+Yeah screw react You can use any libraries (e.g. React), frameworks, tools (e.g., Vite) you want as long as you satisfy the requirements specified above.
+Yeppers we did this You can work with students from any of the class sections.

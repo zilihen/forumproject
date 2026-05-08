@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+  </head>
+
+  <body>
+    <h1>Login</h1>
+    <form action="/loginPage" method="post">
+      <fieldset>
+        <label for="newAccount">
+          Please Select this box if you are creating a new account
+        </label>
+        <input type="checkbox" id="newAccount" name="newAccount" value="true" />
+        <label>Username: <input type="text" name="username" /></label>
+        <label>Password: <input type="text" name="password" /></label>
+        <br /><br />
+      </fieldset>
+      <br />
+      <button type="reset">reset</button>
+      <button type="sumbit">login</button>
+
+      <h3> <%=errorMessage%></h3>
+    </form>
+    <hr />
+  </body>
+</html>

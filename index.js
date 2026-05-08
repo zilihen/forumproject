@@ -3,16 +3,30 @@ const app = express();
 const path = require("path");
 const portNumber = 5000;
 const bodyParser = require("body-parser");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const cred = require("./routes/loginPage");
+const home = require("./routes/home")
+const router = express.Router()
+require("dotenv").config({
+    path: path.resolve(__dirname, ".env"),
+});
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
+app.use(express.static(__dirname+'/public'));
 
-const databaseName = "CMSC335DB";
-const collectionName = "userCredentials";
-const uri = process.env.MONGO_CONNECTION_STRING;
-const client = new MongoClient(uri, { serverApi: ServerApiVersion.v1 });
+app.use("/loginPage", cred.router)
+app.use("/home", home)
+
+app.get("/", (request, response) => { 
+    if(cred.getLoginStatus() === false) { 
+        response.redirect("/loginPage");
+    } else { 
+        response.redirect("/home");
+    }
+})
+
 
 app.listen(portNumber);
 console.log(`main URL http://localhost:${portNumber}/`);
