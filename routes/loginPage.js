@@ -3,13 +3,11 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const router = express.Router();
-const dns = require("dns")
-dns.setServers(["1.1.1.1", "1.0.0.1"]);
 const mongoose = require("mongoose");
 const { log } = require("console");
-const uri = "mongodb+srv://adminUser617:wGgaJxnp2OpQy2Lj@cluster0.wuckxtp.mongodb.net/CMSC335DB?retryWrites=true&w=majority&appName=Cluster0";
 let name;
 let login = false;
+let message = "";
 
 
 const loginSchema = new mongoose.Schema({
@@ -23,7 +21,7 @@ async function checkAccount(user, pass, newAccount) {
     let result = 4;
 
     try {
-        await mongoose.connect(uri);
+        await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 
         const credentials = new Cred({
             username: user,
@@ -76,10 +74,13 @@ function getName() {
     return name;
 }
 
+function setMessage(mes) { 
+    message = mes;
+}
+
 // This "/" is the "/loginPage" so "https://.../loginPage" is the root of this app
 router.get("/", (req, res) => {
-    let errorMessage = "";
-    res.render("login", { errorMessage });
+    res.render("login", { errorMessage: message });
 });
 
 
@@ -119,11 +120,12 @@ router.post("/", (req, res) => {
         }*/
         if (login) {
             name = username;
-            res.redirect("../")
+            // res.redirect("../") // this redirect backwards so it goes back to normal https://.../
+            res.redirect("home");
         } else {
             console.log("Login failed");
             res.render("login", { errorMessage });
         }
     })();
 });
-module.exports = { router, getLoginStatus, checkAccount, getName, Cred, logout};
+module.exports = { router, getLoginStatus, checkAccount, getName, Cred, logout, setMessage};
