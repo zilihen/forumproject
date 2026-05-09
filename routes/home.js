@@ -57,11 +57,13 @@ router.post("/generate", async (req, res) => {
   res.json(joke);
 })
 
-
+// TODO: For saving jokes
 router.post("/save", async (req, res) => { 
 
   res.sendStatus(200); // placeholder, sent a OK status back
 })
+
+
 // async function saveJoke() {
 //   try {
 //     await mongoose.connect(uri);
