@@ -25,14 +25,19 @@ app.get("/", (request, response) => {
     if(cred.getLoginStatus() === false) { 
         response.redirect("/loginPage");
     } else { 
-        let name = cred.getName(); 
-        response.render("home", {name});
+        response.redirect("/home");
     }
 })
 
 
 app.get("/deleteAccount", (req, res)=>{ 
     res.redirect("/deleteAccount")
+});
+
+app.get("/logout", (req, res) => { 
+    cred.logout(); 
+    cred.setMessage("Successfully logged out.");
+    res.redirect("/");
 });
 
 

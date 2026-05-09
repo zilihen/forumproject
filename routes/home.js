@@ -3,12 +3,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const router = express.Router();
-const dns = require("dns");
-dns.setServers(["1.1.1.1", "1.0.0.1"]);
 const mongoose = require("mongoose");
-const uri =
-  "mongodb+srv://adminUser617:wGgaJxnp2OpQy2Lj@cluster0.wuckxtp.mongodb.net/CMSC335DB?retryWrites=true&w=majority&appName=Cluster0";
-const dummy = require("./loginPage");
+const cred = require("./loginPage");
 
 const jokeSchema = new mongoose.Schema({
   username: String,
@@ -24,7 +20,7 @@ let jokePunchline = "";
 generateJoke();
 
 router.get("/", (req, res) => {
-  res.render("home");
+  res.render("home", { name: cred.getName() });
 });
 
 async function generateJoke() {
@@ -60,8 +56,5 @@ async function saveJoke() {
   }
 }
 
-function logout() {
-  dummy.logout();
-}
 
 module.exports = router;
