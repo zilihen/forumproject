@@ -30,16 +30,6 @@ app.get("/", (request, response) => {
 })
 
 
-app.get("/deleteAccount", (req, res)=>{ 
-    res.redirect("/deleteAccount")
-});
-
-app.get("/logout", (req, res) => { 
-    cred.logout(); 
-    cred.setMessage("Successfully logged out.");
-    res.redirect("/");
-});
-
 
 app.listen(portNumber);
 console.log(`main URL http://localhost:${portNumber}/`);

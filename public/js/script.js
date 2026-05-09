@@ -3,26 +3,51 @@ async function generateJoke() {
   // send a request to the url https://.../home/generate
   try {
     let res = await fetch("/home/generate", {
-      method: "Post"
+      method: "POST"
     });
+
+    if (!res.ok) { 
+      throw new Error("Something went wrong.")
+    }
 
     let data = await res.json();
     let text = `${data.setup}\n${data.punchline}`;
 
-    console.log(text);
     document.querySelector("#textZone").innerHTML = text;
   } catch (err) {
-    document.querySelector("#textZone").innerHTML = "Something went wrong.";
+    alert(err);
   }
 }
 
 
-// TODO: should be somewhat similar to above. Use response.ok to check for successful response
+// TODO: should be somewhat similar to above. Not finished yet
 async function saveJoke() {
   try { 
-    let res = await fetch("/home/save")
-  } catch(err) { 
+    let res = await fetch("/home/save");
 
+    if(!res.ok) { 
+      throw new Error("Something went wrong.");
+    }
+  } catch(err) { 
+    alert(err);
+  }
+}
+
+async function logout() { 
+  try { 
+    let res = await fetch("/home/logout", { 
+      method: "POST"
+    }); 
+
+    if (!res.ok) { 
+      throw new Error("Something went wrong.");
+    }
+
+    location.href ="/"; 
+    alert("Logged Out Successfully");
+    return true;
+  } catch(err) { 
+    alert(err);
   }
 }
 

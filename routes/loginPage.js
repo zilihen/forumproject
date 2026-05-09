@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 const { log } = require("console");
 let name;
 let login = false;
-let message = "";
 
 
 const loginSchema = new mongoose.Schema({
@@ -74,13 +73,10 @@ function getName() {
     return name;
 }
 
-function setMessage(mes) { 
-    message = mes;
-}
 
 // This "/" is the "/loginPage" so "https://.../loginPage" is the root of this app
 router.get("/", (req, res) => {
-    res.render("login", { errorMessage: message });
+    res.render("login", { errorMessage: ""});
 });
 
 
@@ -128,4 +124,4 @@ router.post("/", (req, res) => {
         }
     })();
 });
-module.exports = { router, getLoginStatus, checkAccount, getName, Cred, logout, setMessage};
+module.exports = { router, getLoginStatus, checkAccount, getName, Cred, logout};

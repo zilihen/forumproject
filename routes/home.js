@@ -43,24 +43,32 @@ router.get("/", (req, res) => {
 // }
 
 // this will send a json response back to the function that made the fetch request to https://.../home/generate
-router.post("/generate", async (req, res) => { 
-  let response = await fetch("https://official-joke-api.appspot.com/jokes/random"); 
-  const data = await response.json(); 
+router.post("/generate", async (req, res) => {
+  let response = await fetch("https://official-joke-api.appspot.com/jokes/random");
+  const data = await response.json();
   jokeSetup = data.setup
-  jokePunchline = data.punchline; 
+  jokePunchline = data.punchline;
 
-  const joke = { 
-    setup: data.setup, 
+  const joke = {
+    setup: data.setup,
     punchline: data.punchline
   }
 
-  res.json(joke);
+  res.status(200).json(joke);
 })
 
 // TODO: For saving jokes
-router.post("/save", async (req, res) => { 
-
+router.post("/save", async (req, res) => {
   res.sendStatus(200); // placeholder, sent a OK status back
+})
+
+router.post("/logout", async (req, res) => {
+  try {
+    cred.logout();
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(404);
+  }
 })
 
 
