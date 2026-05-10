@@ -70,6 +70,7 @@ router.post("/logout", async (req, res) => {
   try {
     cred.logout();
     res.sendStatus(200); 
+    // res.redirect(200, "/loginPage") // does not work when using with fetch, it instead redirect the fetch request itself not the page
   } catch (err) {
     res.sendStatus(404);
   }
