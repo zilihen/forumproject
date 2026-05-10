@@ -22,11 +22,7 @@ app.use("/home", home)
 app.use("/deleteAccount", deleteAccount)
 
 app.get("/", (request, response) => { 
-    if(cred.getLoginStatus() === false) { 
-        response.redirect("/loginPage");
-    } else { 
-        response.redirect("/home");
-    }
+    response.redirect("home");
 })
 
 

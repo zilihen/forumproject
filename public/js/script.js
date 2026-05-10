@@ -43,8 +43,8 @@ async function logout() {
       throw new Error("Something went wrong.");
     }
 
-    location.href ="/"; 
-    alert("Logged Out Successfully");
+    location.href = "/loginPage";
+
     return true;
   } catch(err) { 
     alert(err);

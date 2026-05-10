@@ -20,7 +20,11 @@ let jokePunchline = "";
 
 
 router.get("/", (req, res) => {
-  res.render("home", { name: cred.getName() });
+  if (cred.getLoginStatus() === false) {
+    res.redirect("loginPage");
+  } else {
+    res.render("home", { name: cred.getName() });
+  }
 });
 
 
@@ -65,7 +69,7 @@ router.post("/save", async (req, res) => {
 router.post("/logout", async (req, res) => {
   try {
     cred.logout();
-    res.sendStatus(200);
+    res.sendStatus(200); 
   } catch (err) {
     res.sendStatus(404);
   }

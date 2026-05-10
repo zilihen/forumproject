@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const { log } = require("console");
 let name;
 let login = false;
+let loggedOut = false;
 
 
 const loginSchema = new mongoose.Schema({
@@ -66,6 +67,7 @@ function getLoginStatus() {
 }
 
 function logout() { 
+    loggedOut = true;
     login = false;
 }
 
@@ -76,7 +78,14 @@ function getName() {
 
 // This "/" is the "/loginPage" so "https://.../loginPage" is the root of this app
 router.get("/", (req, res) => {
-    res.render("login", { errorMessage: ""});
+    let errorMessage = ""; 
+
+    if (loggedOut) { 
+        errorMessage = "You have successfully logged out.";
+        loggedOut = false;
+    }
+    
+    res.render("login", { errorMessage });
 });
 
 
