@@ -22,7 +22,7 @@ app.use("/home", home)
 app.use("/deleteAccount", deleteAccount)
 
 app.get("/", (request, response) => { 
-    response.redirect("home");
+    response.redirect("/home");
 })
 
 

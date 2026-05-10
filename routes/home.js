@@ -22,7 +22,7 @@ let jokePunchline = "";
 // This "/" is the "/home" so "https://.../home" is the root of this app
 router.get("/", (req, res) => {
   if (cred.getLoginStatus() === false) {
-    res.redirect("loginPage"); 
+    res.redirect("/loginPage"); 
   } else {
     res.render("home", { name: cred.getName() });
   }
