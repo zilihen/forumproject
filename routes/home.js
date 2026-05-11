@@ -99,9 +99,9 @@ router.post("/view", async (req,res) => {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
     const jokes = await Joke.find({username:user});
     let html = `<table><tr><th>Number</th><th>Setup</th><th>punchline</th></tr>`
-    let num = 0
+    let num = 1
     jokes.forEach(element => {
-      html+=`<tr><td>${num}</td><td>${element.setup}</td><td>${element/punchline}</td></tr>`;
+      html+=`<tr><td>${num}</td><td>${element.setup}</td><td>${element.punchline}</td></tr>`;
       num+=1;
     });
     html+=`</table>`;
