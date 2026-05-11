@@ -65,7 +65,7 @@ router.post("/generate", async (req, res) => {
 // TODO: For saving jokes
 router.post("/save", async (req, res) => {
   try {
-     await mongoose.connect(uri);
+     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
      const jokeInfo = new Joke({
        username: user,
        setup: jokeSetup,
@@ -92,7 +92,7 @@ router.post("/logout", async (req, res) => {
 
 router.post("/view", async (req,res) => {
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
     
   } catch (err) {
     res.sendStatus(404)
