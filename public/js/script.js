@@ -58,9 +58,13 @@ async function viewJokes() {
     let res = await fetch("/home/view", {
       method: "POST"
     });
+
+    let data = await res.json();
+    let text = `${data.text}`;
+    document.querySelector("#textZone").innerHTML = text;
   }
   catch(err) { 
-    
+    alert(err)
   }
 }
 

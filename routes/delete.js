@@ -18,7 +18,7 @@ const Cred = CredModel.Cred;
 
 async function checkAccount(user, pass) {
     try {
-        await mongoose.connect(uri);
+        await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 
         let user = await Cred.findOne({username: user});
 
