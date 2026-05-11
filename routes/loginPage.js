@@ -16,15 +16,6 @@ const loginSchema = new mongoose.Schema({
     password: String
 });
 
-let salt = 10; 
-
-loginSchema.pre('save', async function(next) {
-  if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
-  next();
-});
-
 
 const Cred = mongoose.model("Cred", loginSchema);
 
