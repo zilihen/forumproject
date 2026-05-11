@@ -59,7 +59,9 @@ async function viewJokes() {
       method: "POST"
     });
   }
-  
+  catch(err) { 
+    
+  }
 }
 
 
