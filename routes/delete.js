@@ -4,7 +4,7 @@ const app = express();
 const path = require("path");
 const router = express.Router();
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcrypt");
 
 // This "/" is the "/deleteAccount" so "https://.../deleteAccount" is the root of this app
 router.get("/", (req, res) => {
@@ -20,7 +20,9 @@ async function checkAccount(user, pass) {
     try {
         await mongoose.connect(uri);
 
-        let result = await Cred.deleteOne({ username: user, password: pass });
+        const salt = bcrypt.genSaltSync(); 
+        const hashedPassword = bcrypt.hashSync(pass, salt);
+        let result = await Cred.deleteOne({ username: user, password: hashedPassword });
         return result;
     } catch (err) {
         console.log(err);

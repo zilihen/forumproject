@@ -5,6 +5,7 @@ const path = require("path");
 const router = express.Router();
 const mongoose = require("mongoose");
 const { log } = require("console");
+const bcrypt = require("bcrypt");
 let name;
 let login = false;
 let loggedOut = false;
@@ -20,12 +21,16 @@ const Cred = mongoose.model("Cred", loginSchema);
 async function checkAccount(user, pass, newAccount) {
     let result = 4;
 
+    let salt = bcrypt.genSaltSync();
+    let hashedPasword = bcrypt.hashSync(pass, salt);
+
+
     try {
         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 
         const credentials = new Cred({
             username: user,
-            password: pass
+            password: hashedPassword
         });
 
         const loginUser = await Cred.findOne({ username: user });

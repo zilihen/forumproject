@@ -6,7 +6,7 @@ async function generateJoke() {
       method: "POST"
     });
 
-    if (!res.ok) { 
+    if (!res.ok) {
       throw new Error("Something went wrong.")
     }
 
@@ -22,33 +22,44 @@ async function generateJoke() {
 
 // TODO: should be somewhat similar to above. Not finished yet
 async function saveJoke() {
-  try { 
-    let res = await fetch("/home/save");
+  try {
+    let res = await fetch("/home/save", {
+      method: "POST"
+    });
 
-    if(!res.ok) { 
+    if (!res.ok) {
       throw new Error("Something went wrong.");
     }
-  } catch(err) { 
+  } catch (err) {
     alert(err);
   }
 }
 
-async function logout() { 
-  try { 
-    let res = await fetch("/home/logout", { 
+async function logout() {
+  try {
+    let res = await fetch("/home/logout", {
       method: "POST"
-    }); 
+    });
 
-    if (!res.ok) { 
+    if (!res.ok) {
       throw new Error("Something went wrong.");
     }
 
     location.href = "/loginPage";
 
     return true;
-  } catch(err) { 
+  } catch (err) {
     alert(err);
   }
+}
+
+async function viewJokes() {
+  try {
+    let res = await fetch("/home/view", {
+      method: "POST"
+    });
+  }
+  
 }
 
 

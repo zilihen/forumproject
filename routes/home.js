@@ -64,6 +64,19 @@ router.post("/generate", async (req, res) => {
 
 // TODO: For saving jokes
 router.post("/save", async (req, res) => {
+  try {
+     await mongoose.connect(uri);
+     const jokeInfo = new Joke({
+       username: user,
+       setup: jokeSetup,
+       punchline: jokePunchline,
+     });
+     await jokeInfo.save();
+     mongoose.disconnect();
+    }
+    catch (err) {
+      console.error(err);
+    }
   res.sendStatus(200); // placeholder, sent a OK status back
 })
 
@@ -74,6 +87,15 @@ router.post("/logout", async (req, res) => {
     // res.redirect(200, "/loginPage") // does not work when using with fetch, it instead redirect the fetch request itself not the page
   } catch (err) {
     res.sendStatus(404);
+  }
+})
+
+router.post("/view", async (req,res) => {
+  try {
+    await mongoose.connect(uri);
+    
+  } catch (err) {
+    res.sendStatus(404)
   }
 })
 
