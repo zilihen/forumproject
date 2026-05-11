@@ -16,7 +16,6 @@ const loginSchema = new mongoose.Schema({
     password: String
 });
 
-
 const Cred = mongoose.model("Cred", loginSchema);
 
 async function checkAccount(user, pass, newAccount) {
@@ -53,7 +52,7 @@ async function checkAccount(user, pass, newAccount) {
                 result = 2;
             }
             else {
-                if (loginUser.password === hashedPassword) {
+                if (bcrypt.compareSync(pass, loginUser.password)) {
                     result = 0;
                 }
                 else {
