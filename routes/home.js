@@ -96,10 +96,19 @@ router.post("/logout", async (req, res) => {
 router.post("/view", async (req,res) => {
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-    
+    const jokes = await Joke.find({username:user});
+    let html = `<table><tr><th>Number</th><th>Setup</th><th>punchline</th></tr>`
+    let num = 0
+    array.forEach(element => {
+      html+=`<tr><td>${num}</td><td>${element.setup}</td><td>${element/punchline}</td></tr>`;
+      num+=1;
+    });
+    html+=`</table>`;
+    const cheatObject= {text:html};
   } catch (err) {
-    res.sendStatus(404)
+    res.sendStatus(404);
   }
+  res.status(200).json(cheatObject);
 })
 
 
