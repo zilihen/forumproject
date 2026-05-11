@@ -52,7 +52,7 @@ async function checkAccount(user, pass, newAccount) {
                 result = 2;
             }
             else {
-                if (bcrypt.compareSync(loginUser.password, pass)) {
+                if (bcrypt.compareSync(pass, loginUser.password)) {
                     result = 0;
                 }
                 else {
