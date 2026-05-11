@@ -70,5 +70,20 @@ async function viewJokes() {
   }
 }
 
+async function deleteJokes() { 
+  try { 
+    let res = await fetch("/home/delete", { 
+      method: "POST"
+    })
+
+    if (!res.ok) { 
+      throw new Error("Something went wrong.");
+    }
+  }
+  catch (err) {
+    alert(err)
+  }
+}
+
 
 

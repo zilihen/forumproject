@@ -24,7 +24,7 @@ let user = "";
 // This "/" is the "/home" so "https://.../home" is the root of this app
 router.get("/", (req, res) => {
   if (cred.getLoginStatus() === false) {
-    res.redirect("/loginPage"); 
+    res.redirect("/loginPage");
   } else {
     user = cred.getName();
     res.render("home", { name: cred.getName() });
@@ -68,51 +68,60 @@ router.post("/generate", async (req, res) => {
 // TODO: For saving jokes
 router.post("/save", async (req, res) => {
   try {
-     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-     const jokeInfo = new Joke({
-       username: user,
-       setup: jokeSetup,
-       punchline: jokePunchline,
-     });
-     await jokeInfo.save();
-     mongoose.disconnect();
-    }
-    catch (err) {
-      console.error(err);
-    }
+    await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+    const jokeInfo = new Joke({
+      username: user,
+      setup: jokeSetup,
+      punchline: jokePunchline,
+    });
+    await jokeInfo.save();
+    mongoose.disconnect();
+  }
+  catch (err) {
+    console.error(err);
+  }
   res.sendStatus(200); // placeholder, sent a OK status back
 })
 
 router.post("/logout", async (req, res) => {
   try {
     cred.logout();
-    res.sendStatus(200); 
+    res.sendStatus(200);
     // res.redirect(200, "/loginPage") // does not work when using with fetch, it instead redirect the fetch request itself not the page
   } catch (err) {
     res.sendStatus(404);
   }
 })
-
-router.post("/view", async (req,res) => {
+router.post("/delete", async (req, res) => {
+  try {
+    await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
+    await Joke.deleteMany({ username: user });
+    mongoose.disconnect();
+    res.sendStatus(200);
+  }
+  catch (err) {
+    res.sendStatus(404);
+  }
+})
+router.post("/view", async (req, res) => {
 
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
-    const jokes = await Joke.find({username:user});
+    const jokes = await Joke.find({ username: user });
     let html = `<table><tr><th>Number</th><th>Setup</th><th>punchline</th></tr>`
     let num = 1
     jokes.forEach(element => {
-      html+=`<tr><td>${num}</td><td>${element.setup}</td><td>${element.punchline}</td></tr>`;
-      num+=1;
+      html += `<tr><td>${num}</td><td>${element.setup}</td><td>${element.punchline}</td></tr>`;
+      num += 1;
     });
-    html+=`</table>`;
-    const cheatObject= {text:html};
+    html += `</table>`;
+    const cheatObject = { text: html };
     mongoose.disconnect();
     res.status(200).json(cheatObject);
   } catch (err) {
     res.sendStatus(404);
   }
 })
-
 
 // async function saveJoke() {
 //   try {

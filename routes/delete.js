@@ -20,9 +20,9 @@ async function checkAccount(user, pass) {
     try {
         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 
-        let user = await Cred.findOne({username: user});
+        let result = await Cred.findOne({username: user});
 
-        if (bcrypt.compareSync(pass, user.password)) { 
+        if (bcrypt.compareSync(pass, result.password)) { 
             let result = await Cred.deleteOne({username: user});
             return result;
         }
