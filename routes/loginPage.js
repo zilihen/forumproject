@@ -23,6 +23,7 @@ async function checkAccount(user, pass, newAccount) {
 
     let salt = bcrypt.genSaltSync();
     let hashedPassword = bcrypt.hashSync(pass, salt);
+    console.log(hashedPassword);
 
 
     try {
