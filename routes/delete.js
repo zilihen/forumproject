@@ -20,10 +20,15 @@ async function checkAccount(user, pass) {
     try {
         await mongoose.connect(uri);
 
-        const salt = bcrypt.genSaltSync(); 
-        const hashedPassword = bcrypt.hashSync(pass, salt);
-        let result = await Cred.deleteOne({ username: user, password: hashedPassword });
-        return result;
+        let user = await Cred.findOne({username: user});
+
+        if (bcrypt.compareSync(pass, user.password)) { 
+            let result = await Cred.deleteOne({username: user});
+            return result;
+        }
+        else { 
+            throw new Error("Something went wrong.")
+        }
     } catch (err) {
         console.log(err);
     }

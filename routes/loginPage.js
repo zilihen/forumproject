@@ -22,10 +22,6 @@ async function checkAccount(user, pass, newAccount) {
     let result = 4;
 
     let hashedPassword = bcrypt.hashSync(pass, 10);
-    let result2 = bcrypt.compareSync(pass, hashedPassword);
-    console.log(hashedPassword);
-    console.log(result2);
-
 
     try {
         await mongoose.connect(process.env.MONGO_CONNECTION_STRING);
