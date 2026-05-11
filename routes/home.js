@@ -100,12 +100,13 @@ router.post("/view", async (req,res) => {
     const jokes = await Joke.find({username:user});
     let html = `<table><tr><th>Number</th><th>Setup</th><th>punchline</th></tr>`
     let num = 0
-    array.forEach(element => {
+    jokes.forEach(element => {
       html+=`<tr><td>${num}</td><td>${element.setup}</td><td>${element/punchline}</td></tr>`;
       num+=1;
     });
     html+=`</table>`;
     const cheatObject= {text:html};
+    mongoose.disconnect();
     res.status(200).json(cheatObject);
   } catch (err) {
     res.sendStatus(404);
