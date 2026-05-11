@@ -16,16 +16,6 @@ const loginSchema = new mongoose.Schema({
     password: String
 });
 
-let salt = 10; 
-
-loginSchema.pre('save', async function(next) {
-  if (this.isModified('password')) {
-    this.password = await bcrypt.hash(this.password, saltRounds);
-  }
-  next();
-});
-
-
 const Cred = mongoose.model("Cred", loginSchema);
 
 async function checkAccount(user, pass, newAccount) {
@@ -62,7 +52,7 @@ async function checkAccount(user, pass, newAccount) {
                 result = 2;
             }
             else {
-                if (loginUser.password === hashedPassword) {
+                if (bcrypt.compare(loginUser.password, pass)) {
                     result = 0;
                 }
                 else {
