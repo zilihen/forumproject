@@ -6,6 +6,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const cred = require("./loginPage");
 const { rmSync } = require("fs");
+const { name } = require("ejs");
 
 const jokeSchema = new mongoose.Schema({
   username: String,
@@ -17,6 +18,7 @@ const Joke = mongoose.model("Joke", jokeSchema);
 
 let jokeSetup = "";
 let jokePunchline = "";
+let user = "";
 
 
 // This "/" is the "/home" so "https://.../home" is the root of this app
@@ -24,6 +26,7 @@ router.get("/", (req, res) => {
   if (cred.getLoginStatus() === false) {
     res.redirect("/loginPage"); 
   } else {
+    user = cred.getName();
     res.render("home", { name: cred.getName() });
   }
 });
